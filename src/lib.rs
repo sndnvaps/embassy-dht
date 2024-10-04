@@ -1,5 +1,7 @@
 /* usage
- *  for dht22
+ *  //for dht22
+ * use embassy_executor::Spawner;
+ * use defmt::*;
  * use embassy_time::{Delay, Duration, Timer};
  * use embassy_rp;
  * use embassy_dht::dht22::DHT22;
@@ -22,7 +24,9 @@
  *}
  *}
  *
- *  for dht11
+ *  //for dht11
+ * use embassy_executor::Spawner;
+ * use defmt::*;
  * use embassy_time::{Delay, Duration, Timer};
  * use embassy_rp;
  * use embassy_dht::dht11::DHT11;
