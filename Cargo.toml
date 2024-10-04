@@ -1,0 +1,13 @@
+[package]
+name = "embassy-dht"
+version = "0.1.0"
+edition = "2021"
+keywords = ["dht11", "dht22", "embassy",  "no_std"]
+repository = "https://github.com/sndnvaps/embassy-dht"
+authors = ["Samuel Freeman <admin@sndnvaps.com>"]
+documentation = "https://docs.rs/embassy-dht"
+license = "MIT/Apache-2.0"
+
+[dependencies]
+embedded-hal = { version = "1.0.0" }
+embassy-rp = { version = "0.2.0",  features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl"] }
