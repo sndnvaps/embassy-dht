@@ -1,6 +1,6 @@
 [package]
 name = "embassy-dht"
-version = "0.1.0"
+version = "0.1.5"
 edition = "2021"
 keywords = ["dht11", "dht22", "embassy",  "no_std"]
 description = " This Rust library provides an interface for interacting with DHT1X and DHT2X temperature and humidity sensors using the Embassy framework."
@@ -12,3 +12,4 @@ license = "MIT/Apache-2.0"
 [dependencies]
 embedded-hal = { version = "1.0.0" }
 embassy-rp = { version = "0.2.0",  features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl"] }
+num-traits = { version = "0.2", default-features= false }

@@ -55,6 +55,7 @@
 use embassy_rp::gpio::{Flex, Pin};
 use embassy_rp::Peripheral;
 use embedded_hal::delay::DelayNs;
+use num_traits::float::FloatCore;
 
 #[derive(Debug, Copy, Clone)]
 pub struct Reading<T, H> {
@@ -188,6 +189,37 @@ pub mod dht22 {
         }
     }
 
+    //rust f32 custom decimal point length pick up from
+    //https://zhuanlan.zhihu.com/p/466389032
+    trait F32Utils {
+        fn round_fixed(self, n: u32) -> f32;
+    }
+
+    impl F32Utils for f32 {
+        fn round_fixed(self, n: u32) -> f32 {
+            if n <= 0 {
+                return self.round();
+            }
+            let i = 10_usize.pow(n) as f32;
+            let x = self * i;
+            if self > 0_f32 {
+                // 正数情况下 1.15_f32.round() 为1.2
+                let m = x.round() as u32;
+                m as f32 / i
+            } else {
+                //默认的负数round四舍五入取整(a) -1.15_f32.round() 为 -1.2 (b)
+                let mr = x.trunc(); //整数部分
+                let mf = x.fract(); //小数部分
+                if mf.abs() >= 0.5 {
+                    // -3.14159 四舍五入保留3位 则-3141.59 / 1000 = -3.14159(逢五进一) 变为-3.140
+                    return (mr + 1_f32) / i;
+                }
+                //小数部分 < 0.5直接舍弃小数部分；小数点直接使用整数部分向前移动n位
+                mr / i
+            }
+        }
+    }
+
     pub struct DHT22<'a, D> {
         pub pin: Flex<'a>,
         pub delay: D,
@@ -219,6 +251,9 @@ pub mod dht22 {
 
             let raw_hum: u16 = (data[0] as u16) << 8 | data[1] as u16;
             let hum: f32 = 0.1 * raw_hum as f32;
+
+            let temp = temp.round_fixed(2);
+            let hum = hum.round_fixed(2);
 
             Ok(Reading { temp, hum })
         }
