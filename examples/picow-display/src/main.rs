@@ -1,16 +1,12 @@
 #![no_std]
 #![no_main]
-#![allow(async_fn_in_trait)]
 
 use core::fmt::Write;
 
 use defmt::info;
 use embassy_executor::Spawner;
-use embassy_rp::bind_interrupts;
 use embassy_rp::i2c;
-use embassy_rp::peripherals::PIO0;
-use embassy_rp::pio::InterruptHandler;
-use embassy_time::{Delay, Duration, Timer};
+use embassy_time::{Delay, Timer};
 
 use {defmt_rtt as _, panic_probe as _};
 
@@ -22,28 +18,17 @@ use embedded_graphics::{
     primitives::{Line, PrimitiveStyle},
     text::{Baseline, Text},
 };
-use u8g2_fonts::U8g2TextStyle;
 use u8g2_fonts::fonts::u8g2_font_wqy12_t_gb2312;
+use u8g2_fonts::U8g2TextStyle;
 // The display driver:
 use ssd1306::{prelude::*, Ssd1306};
 pub mod fmtbuf;
 use fmtbuf::FmtBuf;
 
-//pub mod dht22;
-//use dht22::dht22::{DHT22, Reading};
-//pub mod dht11;
-//use dht11::dht11::DHT11;
-
 use embassy_dht::dht22::DHT22;
-
-bind_interrupts!(struct Irqs {
-    PIO0_IRQ_0 => InterruptHandler<PIO0>;
-});
-
 
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
-
     let p = embassy_rp::init(Default::default());
 
     info!("set up i2c ");
@@ -60,29 +45,26 @@ async fn main(_spawner: Spawner) {
     display.init().unwrap();
 
     // Create a text style for drawing the font:
-    let character_style =
-        U8g2TextStyle::new(u8g2_font_wqy12_t_gb2312, BinaryColor::On);
+    let character_style = U8g2TextStyle::new(u8g2_font_wqy12_t_gb2312, BinaryColor::On);
 
     info!("set up dhtxx pin");
-    //let pin_22 = Flex::new(p.PIN_22);
-    #[cfg(feature = "dht22")]
-    let mut dht_pin = DHT22::new(p.PIN_22, Delay);
-
-    #[cfg(feature = "dht11")]
-    let mut dht_pin = DHT11::new(p.PIN_22, Delay);
-
     let mut line0_p2 = FmtBuf::new();
-    #[cfg(feature = "dht11")]
-    write!(&mut line0_p2, "{}", "DHT11").unwrap();
-
-    #[cfg(feature = "dht22")]
-    write!(&mut line0_p2, "{}", "DHT22").unwrap();
+    cfg_if::cfg_if! {
+        if  #[cfg(feature = "dht11")] {
+            let mut dht_pin = DHT11::new(p.PIN_22, Delay);
+            write!(&mut line0_p2, "{}", "DHT11").unwrap();
+        } else if #[cfg(feature = "dht22")] {
+            write!(&mut line0_p2, "{}", "DHT22").unwrap();
+            let mut dht_pin = DHT22::new(p.PIN_22, Delay);
+        }
+    }
 
     // Perform a sensor reading
     let mut line1 = FmtBuf::new();
     let mut line2 = FmtBuf::new();
 
     loop {
+        Timer::after_secs(1).await;
         // Empty the display:
         // Draw 3 lines of text:
         //reset before loop
@@ -170,7 +152,5 @@ async fn main(_spawner: Spawner) {
             .unwrap();
 
         display.flush().unwrap();
-
-        Timer::after(Duration::from_secs(5)).await;
     }
 }

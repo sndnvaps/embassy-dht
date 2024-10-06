@@ -20,8 +20,8 @@ embedded-hal = { version = "1.0.0" }
 embedded-graphics = "0.8.1"
 ssd1306 = "0.8.1"
 u8g2-fonts = { version = "0.4.0", features = ["embedded_graphics_textstyle"] }
-embassy-dht = { version = "0.1.0"}
-
+embassy-dht = { version = "0.1.5" }
+cfg-if = "1.0"
 
 [profile.release]
 codegen-units = 1
