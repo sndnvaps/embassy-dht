@@ -2,51 +2,53 @@
  *  //for dht22
  * use embassy_executor::Spawner;
  * use defmt::*;
- * use embassy_time::{Delay, Duration, Timer};
+ * use embassy_time::{Delay, Timer};
  * use embassy_rp;
  * use embassy_dht::dht22::DHT22;
  *
  * #[embassy_executor::main]
- *   async fn main(spawner: Spawner) {
- *  info!("Hello World!");
- *
- *   let p = embassy_rp::init(Default::default());
- *
- *  info!("set up dhtxx pin");
- *
- *   let mut dht_pin = DHT22::new(p.PIN_22,Delay);
- *
- *   loop {
- *   let dht_reading = dht_pin.read().unwrap();
- *   let (temp, humi) = (dht_reading.get_temp(), dht_reading.get_hum());
- *  defmt::info!("Temp = {}, Humi = {}\n", temp,humi);
- *   ... the code what you write
- *}
- *}
- *
- *  //for dht11
- * use embassy_executor::Spawner;
- * use defmt::*;
- * use embassy_time::{Delay, Duration, Timer};
- * use embassy_rp;
- * use embassy_dht::dht11::DHT11;
- *
- * #[embassy_executor::main]
- *  async fn main(spawner: Spawner) {
- *  info!("Hello World!");
+ *   async fn main(_spawner: Spawner) {
+ *   info!("Hello World!");
  *
  *   let p = embassy_rp::init(Default::default());
  *
  *   info!("set up dhtxx pin");
  *
- *   let mut dht_pin = DHT11::new(p.PIN_22,Delay);
+ *   let mut dht_pin = DHT22::new(p.PIN_22,Delay);
+ *
+ *   loop {
+ *      Timer::after_secs(1).await;
+ *      let dht_reading = dht_pin.read().unwrap();
+ *      let (temp, humi) = (dht_reading.get_temp(), dht_reading.get_hum());
+ *      defmt::info!("Temp = {}, Humi = {}\n", temp,humi);
+ *      ... the code what you write
+ *   }
+ *}
+ *
+ *  //for dht11
+ * use embassy_executor::Spawner;
+ * use defmt::*;
+ * use embassy_time::{Delay, Timer};
+ * use embassy_rp;
+ * use embassy_dht::dht11::DHT11;
+ *
+ * #[embassy_executor::main]
+ *  async fn main(_spawner: Spawner) {
+ *  info!("Hello World!");
+ *
+ *  let p = embassy_rp::init(Default::default());
+ *
+ *  info!("set up dhtxx pin");
+ *
+ *  let mut dht_pin = DHT11::new(p.PIN_22,Delay);
  *
  *  loop {
- *   let dht_reading = dht_pin.read().unwrap();
- *  let (temp, humi) = (dht_reading.get_temp(), dht_reading.get_hum());
- *  defmt::info!("Temp = {}, Humi = {}\n", temp,humi);
- *   ... the code what you write
- *}
+ *      Timer::after_secs(1).await;
+ *      let dht_reading = dht_pin.read().unwrap();
+ *      let (temp, humi) = (dht_reading.get_temp(), dht_reading.get_hum());
+ *      defmt::info!("Temp = {}, Humi = {}\n", temp,humi);
+ *      ... the code what you write
+ *  }
  *}
  *
 */
