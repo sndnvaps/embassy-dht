@@ -4,7 +4,7 @@
 
 Only test on raspberry pico (w) (RP2040)
 
- rp2035 may be work
+ Pico 2 (RP2350) may be work
 
 # Getting Started
 
@@ -14,7 +14,7 @@ Add embassy-dht-sensor to your Cargo.toml:
 
 ```toml
 [dependencies]
-embassy-dht- = "0.1.0"
+embassy-dht = "0.1.0"
 ```
 ## Usage
 
