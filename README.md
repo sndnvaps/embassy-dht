@@ -14,7 +14,7 @@ Add embassy-dht-sensor to your Cargo.toml:
 
 ```toml
 [dependencies]
-embassy-dht = "0.1.7"
+embassy-dht = "0.1.8"
 ```
 ## Usage
 

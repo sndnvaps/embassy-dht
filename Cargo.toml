@@ -1,6 +1,6 @@
 [package]
 name = "embassy-dht"
-version = "0.1.7"
+version = "0.1.8"
 edition = "2021"
 keywords = ["DHTXX", "embassy",  "no_std", "RP2040", "RP2350"]
 description = " This Rust library provides an interface for interacting with DHT1X and DHT2X temperature and humidity sensors using the Embassy framework."
