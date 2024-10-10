@@ -96,8 +96,8 @@ pub trait DhtValueString {
 
 # examples
 
-https://github.com/sndnvaps/embassy-dht/examples/picow-display-embedded-alloc
+https://github.com/sndnvaps/embassy-dht/tree/main/examples/picow-display-embedded-alloc
 
-https://github.com/sndnvaps/embassy-dht/examples/picow-display
+https://github.com/sndnvaps/embassy-dht/tree/main/examples/picow-display
 
 Pick up idea from https://crates.io/crates/embassy-dht-sensor
