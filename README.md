@@ -14,7 +14,7 @@ Add embassy-dht-sensor to your Cargo.toml:
 
 ```toml
 [dependencies]
-embassy-dht = "0.1.0"
+embassy-dht = "0.1.7"
 ```
 ## Usage
 
@@ -77,5 +77,27 @@ embassy-dht = "0.1.0"
    }
 ```
 
+# New feature embedded_alloc
+
+to enable it by ,add to Cargo.toml
+
+```toml
+embassy-dht = { version = "0.1.7", features= ["embedded_alloc"] }
+```
+# when enable embedded_alloc we will get new fn in DHT11/DHT22 mod
+
+```rust
+pub trait DhtValueString {
+     fn get_temp_str(&self) -> String;
+     fn get_hum_str(&self) -> String;
+}
+
+```
+
+# examples
+
+https://github.com/sndnvaps/embassy-dht/examples/picow-display-embedded-alloc
+
+https://github.com/sndnvaps/embassy-dht/examples/picow-display
 
 Pick up idea from https://crates.io/crates/embassy-dht-sensor

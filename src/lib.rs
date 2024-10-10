@@ -58,6 +58,12 @@ use embassy_rp::gpio::{Flex, Pin};
 use embassy_rp::Peripheral;
 use embedded_hal::delay::DelayNs;
 use num_traits::float::FloatCore;
+#[cfg(feature = "embedded_alloc")]
+extern crate alloc;
+#[cfg(feature = "embedded_alloc")]
+use alloc::string::{String, ToString};
+#[cfg(feature = "embedded_alloc")]
+use alloc::borrow::ToOwned;
 
 #[derive(Debug, Copy, Clone)]
 pub struct Reading<T, H> {
@@ -83,6 +89,12 @@ where
     }
 }
 
+#[cfg(feature = "embedded_alloc")]
+pub trait DhtValueString {
+     fn get_temp_str(&self) -> String;
+     fn get_hum_str(&self) -> String;
+}
+
 pub mod dht11 {
     use super::*;
 
@@ -94,7 +106,19 @@ pub mod dht11 {
             self.hum
         }
     }
-
+    #[cfg(feature = "embedded_alloc")]
+    impl DhtValueString for Reading<i8,u8> {
+         fn get_temp_str(&self) -> String {
+            let temp = self.get_temp();
+            let temp_str = temp.to_string();
+            temp_str.to_owned()
+        }
+        fn get_hum_str(&self) -> String {
+            let hum = self.get_hum();
+            let hum_str = hum.to_string();
+            hum_str.to_owned()
+        }
+    }
     pub struct DHT11<'a, D> {
         pub pin: Flex<'a>,
         pub delay: D,
@@ -186,9 +210,26 @@ pub mod dht22 {
         pub fn get_temp(&self) -> f32 {
             self.temp
         }
+
         pub fn get_hum(&self) -> f32 {
             self.hum
         }
+
+    }
+
+    #[cfg(feature = "embedded_alloc")]
+    impl DhtValueString for Reading<f32,f32> {
+         fn get_temp_str(&self) -> String {
+            let temp = self.get_temp();
+            let temp_str = temp.to_string();
+            temp_str.to_owned()
+        }
+        fn get_hum_str(&self) -> String {
+            let hum = self.get_hum();
+            let hum_str = hum.to_string();
+            hum_str.to_owned()
+        }
+
     }
 
     //rust f32 custom decimal point length pick up from
