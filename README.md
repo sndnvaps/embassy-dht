@@ -82,7 +82,7 @@ embassy-dht = "0.1.8"
 to enable it by ,add to Cargo.toml
 
 ```toml
-embassy-dht = { version = "0.1.7", features= ["embedded_alloc"] }
+embassy-dht = { version = "0.1.8", features= ["embedded_alloc"] }
 ```
 # when enable embedded_alloc we will get new fn in DHT11/DHT22 mod
 

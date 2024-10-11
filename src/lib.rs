@@ -61,9 +61,9 @@ use num_traits::float::FloatCore;
 #[cfg(feature = "embedded_alloc")]
 extern crate alloc;
 #[cfg(feature = "embedded_alloc")]
-use alloc::string::{String, ToString};
-#[cfg(feature = "embedded_alloc")]
 use alloc::borrow::ToOwned;
+#[cfg(feature = "embedded_alloc")]
+use alloc::string::{String, ToString};
 
 #[derive(Debug, Copy, Clone)]
 pub struct Reading<T, H> {
@@ -91,8 +91,8 @@ where
 
 #[cfg(feature = "embedded_alloc")]
 pub trait DhtValueString {
-     fn get_temp_str(&self) -> String;
-     fn get_hum_str(&self) -> String;
+    fn get_temp_str(&self) -> String;
+    fn get_hum_str(&self) -> String;
 }
 
 pub mod dht11 {
@@ -107,8 +107,8 @@ pub mod dht11 {
         }
     }
     #[cfg(feature = "embedded_alloc")]
-    impl DhtValueString for Reading<i8,u8> {
-         fn get_temp_str(&self) -> String {
+    impl DhtValueString for Reading<i8, u8> {
+        fn get_temp_str(&self) -> String {
             let temp = self.get_temp();
             let temp_str = temp.to_string();
             temp_str.to_owned()
@@ -214,12 +214,11 @@ pub mod dht22 {
         pub fn get_hum(&self) -> f32 {
             self.hum
         }
-
     }
 
     #[cfg(feature = "embedded_alloc")]
-    impl DhtValueString for Reading<f32,f32> {
-         fn get_temp_str(&self) -> String {
+    impl DhtValueString for Reading<f32, f32> {
+        fn get_temp_str(&self) -> String {
             let temp = self.get_temp();
             let temp_str = temp.to_string();
             temp_str.to_owned()
@@ -229,7 +228,6 @@ pub mod dht22 {
             let hum_str = hum.to_string();
             hum_str.to_owned()
         }
-
     }
 
     //rust f32 custom decimal point length pick up from
