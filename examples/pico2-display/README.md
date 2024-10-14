@@ -19,6 +19,6 @@ dht11 = []
 dht22 = []
 ```
 
-# Deploy by elf2uf2-rs
+# Deploy by picotool-2.0
 
-    cargo install elf2uf2-rs 
+    download picotool from https://github.com/raspberrypi/pico-sdk-tools/releases
