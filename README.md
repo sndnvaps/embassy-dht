@@ -2,9 +2,7 @@
 
   This Rust library provides an interface for interacting with DHT1X and DHT2X temperature and humidity sensors using the Embassy framework.
 
-Only test on raspberry pico (w) (RP2040)
-
- Pico 2 (RP2350) may be work
+ test on raspberry pico (w) (RP2040) &&  Pico 2 (RP2350)
 
 # Getting Started
 
@@ -14,7 +12,7 @@ Add embassy-dht-sensor to your Cargo.toml:
 
 ```toml
 [dependencies]
-embassy-dht = "0.1.8"
+embassy-dht = "0.2.0"
 ```
 ## Usage
 
@@ -82,7 +80,7 @@ embassy-dht = "0.1.8"
 to enable it by ,add to Cargo.toml
 
 ```toml
-embassy-dht = { version = "0.1.8", features= ["embedded_alloc"] }
+embassy-dht = { version = "0.2.0", features= ["embedded_alloc"] }
 ```
 # when enable embedded_alloc we will get new fn in DHT11/DHT22 mod
 
@@ -94,10 +92,22 @@ pub trait DhtValueString {
 
 ```
 
+# New features for rp2040 or rp2350
+
+```toml
+# default feature is rp2350
+ embassy-dht = { version = "0.2.0", features= ["embedded_alloc","rp2350"] }
+ # to use rp2040, need to disable the default-feature first
+ embassy-dht = { version = "0.2.0", default-features = false, features= ["embedded_alloc","rp2040"] }
+```
+
 # examples
 
 https://github.com/sndnvaps/embassy-dht/tree/main/examples/picow-display-embedded-alloc
 
 https://github.com/sndnvaps/embassy-dht/tree/main/examples/picow-display
+
+https://github.com/sndnvaps/embassy-dht/tree/main/examples/pico2-display
+
 
 Pick up idea from https://crates.io/crates/embassy-dht-sensor

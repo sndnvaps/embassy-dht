@@ -54,8 +54,17 @@
 */
 
 #![no_std]
+
+#[cfg(feature = "rp2040")]
 use embassy_rp::gpio::{Flex, Pin};
+#[cfg(feature = "rp2040")]
 use embassy_rp::Peripheral;
+
+#[cfg(feature = "rp2350")]
+use embassy_rp_main::gpio::{Flex, Pin};
+#[cfg(feature = "rp2350")]
+use embassy_rp_main::Peripheral;
+
 use embedded_hal::delay::DelayNs;
 use num_traits::float::FloatCore;
 #[cfg(feature = "embedded_alloc")]
@@ -342,3 +351,10 @@ pub mod dht22 {
         }
     }
 }
+
+#[cfg(not(any(feature = "rp2040", feature = "rp2350")))]
+compile_error!("You must select a Board model with a feature flag: rp2040 or rp2350");
+
+#[cfg(all(feature = "rp2040", feature = "rp2350"))]
+compile_error!("You must select only one Board  model with a feature flag: rp2040 or rp2350");
+

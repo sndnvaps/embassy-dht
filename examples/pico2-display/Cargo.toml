@@ -6,10 +6,11 @@ license = "MIT OR Apache-2.0"
 rust-version = "1.77"
 
 [dependencies]
-embassy-embedded-hal = { version = "0.2.0", features = ["defmt"] }
-embassy-executor = { version = "0.6.0",  features = ["task-arena-size-98304", "arch-cortex-m", "executor-thread", "executor-interrupt", "defmt", "integrated-timers"] }
-embassy-time = { version = "0.3.2", features = ["defmt", "defmt-timestamp-uptime"] }
-embassy-rp = { version = "0.2.0",  features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl","rp235xa"] }
+embassy-embedded-hal = { version = "0.2.0", git="https://github.com/embassy-rs/embassy", branch="main", features = ["defmt"] }
+embassy-executor = { version = "0.6.0", git="https://github.com/embassy-rs/embassy", branch="main", features = ["task-arena-size-98304", "arch-cortex-m", "executor-thread", "executor-interrupt", "defmt", "integrated-timers"] }
+embassy-time = { version = "0.3.2", git="https://github.com/embassy-rs/embassy", branch="main",features = ["defmt", "defmt-timestamp-uptime"] }
+embassy-time-driver = { version = "0.1", git="https://github.com/embassy-rs/embassy", branch="main"}
+embassy-rp = { version = "0.2.0", git="https://github.com/embassy-rs/embassy", branch="main",features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl","rp235xa", "binary-info"] }
 defmt = { version = "0.3.8"}
 defmt-rtt = "0.4.1"
 cortex-m = { version = "0.7.7", features = ["inline-asm"] }
@@ -17,10 +18,11 @@ cortex-m-rt = "0.7.0"
 critical-section = "1.1"
 panic-probe = { version = "0.3", features = ["print-defmt"] }
 embedded-hal = { version = "1.0.0" }
+embedded-alloc = { version = "0.6.0"}
 embedded-graphics = "0.8.1"
 ssd1306 = "0.8.1"
 u8g2-fonts = { version = "0.4.0", features = ["embedded_graphics_textstyle"] }
-embassy-dht = { version = "0.1.8" }
+embassy-dht = { version = "0.2.0", features = [ "embedded_alloc", "rp2350"] }
 cfg-if = "1.0"
 
 [profile.release]
