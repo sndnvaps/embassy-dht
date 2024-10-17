@@ -69,7 +69,7 @@ async fn main(_spawner: Spawner) {
 
     info!("set up dhtxx pin");
     let mut line0_p2 = FmtBuf::new();
-
+    
     cfg_if::cfg_if! {
         if  #[cfg(feature = "dht11")] {
             let mut dht_pin = DHT11::new(p.PIN_17, Delay);
@@ -79,8 +79,9 @@ async fn main(_spawner: Spawner) {
             let mut dht_pin = DHT22::new(p.PIN_17, Delay);
         }
     }
+    
 
- 
+
     let mut led = Output::new(p.PIN_25, Level::Low);
 
     // Perform a sensor reading
