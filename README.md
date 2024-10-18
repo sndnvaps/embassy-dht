@@ -12,11 +12,26 @@ Add embassy-dht-sensor to your Cargo.toml:
 
 ```toml
 [dependencies]
-embassy-dht = "0.1.9"
+embassy-dht = "0.2.0"
 ```
 ## Usage
 
   Initialize your Raspberry Pi Pico board with Embassy. Create an instance of DHTSensor with the GPIO pin connected to your DHT sensor. Use the read method to get temperature and humidity readings.
+
+## add new feature rp2040 && rp2350 
+  
+  to fix the build error for rp-pac@6.0.0, 
+  the embassy-dht default-features
+
+```toml
+  default-features = ["rp2040"]
+```
+
+## To use rp2350 feature for Pico2 
+
+```toml
+embassy-dht = { version = "0.2.0", default-features=false, features = ["embedded_alloc","rp2350"] }
+```
 
 ## Example for RP2040
 
@@ -105,9 +120,10 @@ embassy-executor = { version = "0.6.0", git="https://github.com/embassy-rs/embas
 embassy-time = { version = "0.3.2", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b",features = ["defmt", "defmt-timestamp-uptime"] }
 embassy-time-driver = { version = "0.1", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b"}
 embassy-rp = { version = "0.2.0", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl","rp235xa", "binary-info"] }
-embassy-dht = { version = "0.1.9", features = [ "embedded_alloc"] }
+embassy-dht = { version = "0.2.0", features = [ "embedded_alloc","rp2350"] }
 ...what crate you need
 ```
+
 
 src/main.rs
 ```rust

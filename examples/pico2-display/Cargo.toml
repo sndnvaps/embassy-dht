@@ -6,11 +6,12 @@ license = "MIT OR Apache-2.0"
 rust-version = "1.77"
 
 [dependencies]
-embassy-embedded-hal = { version = "0.2.0", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["defmt"] }
-embassy-executor = { version = "0.6.0", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["task-arena-size-98304", "arch-cortex-m", "executor-thread", "executor-interrupt", "defmt", "integrated-timers"] }
-embassy-time = { version = "0.3.2", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b",features = ["defmt", "defmt-timestamp-uptime"] }
-embassy-time-driver = { version = "0.1", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b"}
-embassy-rp = { version = "0.2.0", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl","rp235xa", "binary-info"] }
+embassy-embedded-hal = { git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["defmt"] }
+embassy-executor = {  git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["task-arena-size-98304", "arch-cortex-m", "executor-thread", "executor-interrupt", "defmt", "integrated-timers"] }
+embassy-time = {  git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b",features = ["defmt", "defmt-timestamp-uptime"] }
+embassy-time-driver = {  git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b"}
+embassy-rp = { git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl","rp235xa", "binary-info"] }
+rp-pac = { git="https://github.com/embassy-rs/rp-pac.git", rev="a7f42d25517f7124ad3b4ed492dec8b0f50a0e6c",default-features=false, features = ["rt"] }
 defmt = { version = "0.3.8"}
 defmt-rtt = "0.4.1"
 cortex-m = { version = "0.7.7", features = ["inline-asm"] }
@@ -22,7 +23,7 @@ embedded-alloc = { version = "0.6.0"}
 embedded-graphics = "0.8.1"
 ssd1306 = "0.8.1"
 u8g2-fonts = { version = "0.4.0", features = ["embedded_graphics_textstyle"] }
-embassy-dht = { version = "0.1.9", features = [ "embedded_alloc"] }
+embassy-dht = { version = "0.2.0", default-features=false, features = ["embedded_alloc","rp2350"] }
 cfg-if = "1.0"
 
 [profile.release]

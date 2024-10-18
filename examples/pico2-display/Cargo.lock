@@ -349,6 +349,7 @@ dependencies = [
  "embassy-time-driver",
  "embedded-hal 1.0.0",
  "num-traits",
+ "rp-pac",
 ]
 
 [[package]]
@@ -980,6 +981,7 @@ dependencies = [
  "embedded-graphics",
  "embedded-hal 1.0.0",
  "panic-probe",
+ "rp-pac",
  "ssd1306",
  "u8g2-fonts",
 ]

@@ -39,6 +39,19 @@ static HEAP: Heap = Heap::empty();
 #[used]
 pub static IMAGE_DEF: ImageDef = ImageDef::secure_exe();
 
+// Program metadata for `picotool info`.
+// This isn't needed, but it's recomended to have these minimal entries.
+#[link_section = ".bi_entries"]
+#[used]
+pub static PICOTOOL_ENTRIES: [embassy_rp::binary_info::EntryAddr; 4] = [
+    embassy_rp::binary_info::rp_program_name!(c"Pico2 Display"),
+    embassy_rp::binary_info::rp_program_description!(
+        c"This example use ssd1306 to display the temp && humi  info from dht22/dht11 sensor"
+    ),
+    embassy_rp::binary_info::rp_cargo_version!(),
+    embassy_rp::binary_info::rp_program_build_attribute!(),
+];
+
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
     // Initialize the allocator BEFORE you use it
