@@ -342,7 +342,8 @@ checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
 
 [[package]]
 name = "embassy-dht"
-version = "0.1.9"
+version = "0.2.0"
+source = "git+https://github.com/sndnvaps/embassy-dht?rev=a020823c82bf2f10c63c2bf933ae936a233a4b29#a020823c82bf2f10c63c2bf933ae936a233a4b29"
 dependencies = [
  "embassy-rp",
  "embassy-time",

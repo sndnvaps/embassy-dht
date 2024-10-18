@@ -23,7 +23,7 @@ embedded-alloc = { version = "0.6.0"}
 embedded-graphics = "0.8.1"
 ssd1306 = "0.8.1"
 u8g2-fonts = { version = "0.4.0", features = ["embedded_graphics_textstyle"] }
-embassy-dht = { version = "0.2.0", default-features=false, features = ["embedded_alloc","rp2350"] }
+embassy-dht = { git="https://github.com/sndnvaps/embassy-dht", rev="a020823c82bf2f10c63c2bf933ae936a233a4b29", default-features=false, features = ["embedded_alloc","rp2350"] }
 cfg-if = "1.0"
 
 [profile.release]
