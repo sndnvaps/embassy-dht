@@ -16,18 +16,25 @@ flavors = [
 ]
 
 [features]
-default = ["rp2040"]
+default = ["rp2350","dht22"]
 embedded_alloc = []
 rp2040 = ["rp-pac/rp2040","embassy-rp/rp2040"]
 rp2350 = ["rp-pac/rp235x","embassy-rp/rp235xa"]
+dht11 = []
+dht22 = []
+
 
 [dependencies]
 embedded-hal = { version = "1.0.0" }
+embassy-rp = { version = "0.2.0", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl"] }
+embassy-time = { version = "0.3.2", features = ["defmt", "defmt-timestamp-uptime"] }
+embassy-time-driver = "0.1.0"
+rp-pac = { version = "6.0.0", default-features=false, features = ["rt"] }
+
+num-traits = { version = "0.2", default-features= false }
+
+[patch.crates-io]
 embassy-rp = {  git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b",features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl"] }
 embassy-time = { git="https://github.com/embassy-rs/embassy",  rev="ee669ee5c57851ade034beca7cfaf81825c4c21b",features = ["defmt", "defmt-timestamp-uptime"] }
 embassy-time-driver = { git="https://github.com/embassy-rs/embassy",  rev="ee669ee5c57851ade034beca7cfaf81825c4c21b"}
 rp-pac = { git="https://github.com/embassy-rs/rp-pac.git", rev="a7f42d25517f7124ad3b4ed492dec8b0f50a0e6c",default-features=false, features = ["rt"] }
-
-
-num-traits = { version = "0.2", default-features= false }
-
