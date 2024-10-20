@@ -12,7 +12,7 @@ Add embassy-dht-sensor to your Cargo.toml:
 
 ```toml
 [dependencies]
-embassy-dht = "0.2.0"
+embassy-dht = "0.1.9"
 ```
 ## Usage
 
@@ -30,7 +30,7 @@ embassy-dht = "0.2.0"
 ## To use rp2350 feature for Pico2 
 
 ```toml
-embassy-dht = { version = "0.2.0", default-features=false, features = ["embedded_alloc","rp2350"] }
+embassy-dht = { version = "0.1.9", default-features=false, features = ["embedded_alloc","rp2350"] }
 ```
 
 ## Example for RP2040
@@ -120,7 +120,11 @@ embassy-executor = { version = "0.6.0", git="https://github.com/embassy-rs/embas
 embassy-time = { version = "0.3.2", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b",features = ["defmt", "defmt-timestamp-uptime"] }
 embassy-time-driver = { version = "0.1", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b"}
 embassy-rp = { version = "0.2.0", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl","rp235xa", "binary-info"] }
-embassy-dht = { version = "0.2.0", features = [ "embedded_alloc","rp2350"] }
+embassy-dht = { version = "0.1.9", default-features = false, features = [ "embedded_alloc"] }
+
+[patch.crates-io]
+embassy-dht = { git="https://github.com/sndnvaps/embassy-dht", rev="a020823c82bf2f10c63c2bf933ae936a233a4b29", default-features=false, features = ["embedded_alloc","rp2350"] }
+
 ...what crate you need
 ```
 
