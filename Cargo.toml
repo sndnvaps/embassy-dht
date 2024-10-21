@@ -16,11 +16,12 @@ flavors = [
 ]
 
 [features]
-default = ["rp2040","dht22"]
+default = ["rp2040", "dht22", "dht20", "dht11", "embedded_alloc"]
 embedded_alloc = []
 rp2040 = ["rp-pac/rp2040","embassy-rp/rp2040"]
 rp2350 = ["rp-pac/rp235x","embassy-rp/rp235xa"]
 dht11 = []
+dht20 = []
 dht22 = []
 
 
