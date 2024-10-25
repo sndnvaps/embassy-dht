@@ -27,10 +27,8 @@ use ssd1306::{prelude::*, Ssd1306};
 pub mod fmtbuf;
 use fmtbuf::FmtBuf;
 
-use embassy_dht::dht22::DHT22;
-use embassy_dht::DhtValueString;
-
 use core::ptr::addr_of_mut;
+use embassy_dht::prelude::*;
 use embedded_alloc::LlffHeap as Heap;
 #[global_allocator]
 static HEAP: Heap = Heap::empty();
@@ -82,17 +80,17 @@ async fn main(_spawner: Spawner) {
 
     info!("set up dhtxx pin");
     let mut line0_p2 = FmtBuf::new();
-    
+
     cfg_if::cfg_if! {
         if  #[cfg(feature = "dht11")] {
-            let mut dht_pin = DHT11::new(p.PIN_17, Delay);
             write!(&mut line0_p2, "{}", "DHT11").unwrap();
+            let mut dht_pin = DHT11::new(p.PIN_17, Delay);
+
         } else if #[cfg(feature = "dht22")] {
             write!(&mut line0_p2, "{}", "DHT22").unwrap();
             let mut dht_pin = DHT22::new(p.PIN_17, Delay);
         }
     }
-    
 
 
     let mut led = Output::new(p.PIN_25, Level::Low);
@@ -115,7 +113,8 @@ async fn main(_spawner: Spawner) {
         // Perform a sensor reading
         //  let measurement = Reading::read(&mut Delay, &mut dht_pin).unwrap();
         //  let (temp, humi) = get(measurement).value();
-        let (temp, humi) = (dht_reading.get_temp_str(), dht_reading.get_hum_str());
+
+        let (temp, humi) = (dht_reading.get_temp(), dht_reading.get_hum());
         Text::with_baseline(
             "SensorType",
             Point::new(3, 2),
@@ -190,6 +189,8 @@ async fn main(_spawner: Spawner) {
             .unwrap();
 
         display.flush().unwrap();
+
+        //Timer::after_secs(1).await;
 
         info!("led on!");
         led.set_high();
