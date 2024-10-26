@@ -90,6 +90,38 @@ embassy-dht = { version = "0.1.9", default-features=false, features = ["embedded
    }
 ```
 
+```rust
+//for dht20
+  use embassy_executor::Spawner;
+  use defmt::*;
+  use embassy_time::{Delay, Timer};
+  use embassy_rp;
+  use embassy_dht::prelude::*;
+ 
+  #[embassy_executor::main]
+    async fn main(_spawner: Spawner) {
+    info!("Hello World!");
+ 
+    let p = embassy_rp::init(Default::default());
+ 
+    info!("set up dhtxx i2c pin");
+    let dht_sda = p.PIN_16; //I2C0 SDA
+    let dht_scl = p.PIN_17; //I2C0 SCL
+    let dht_i2c = i2c::I2c::new_blocking(p.I2C0, dht_scl, dht_sda, i2c::Config::default());
+    let mut dht_pin = DHT20::new(dht_i2c, Delay);
+
+ 
+   loop {
+    Timer::after_secs(1).await;
+    let dht_reading = dht_pin.read().unwrap();
+    let (temp, humi) = (dht_reading.get_temp(), dht_reading.get_hum());
+    defmt::info!("Temp = {}, Humi = {}\n", temp,humi);
+    ... the code what you write
+   }
+   }
+```
+
+```
 # New feature embedded_alloc
 
 to enable it by ,add to Cargo.toml

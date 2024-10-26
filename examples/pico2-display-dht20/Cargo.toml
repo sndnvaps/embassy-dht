@@ -1,0 +1,56 @@
+[package]
+name = "pico2-display-dht20"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+rust-version = "1.77"
+
+[dependencies]
+embassy-embedded-hal = { version = "0.2.0",git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b",features = ["defmt"] }
+embassy-executor = { version = "0.6.0", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["task-arena-size-98304", "arch-cortex-m", "executor-thread", "executor-interrupt", "defmt", "integrated-timers"] }
+embassy-rp = { version = "0.2.0", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b",  features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl","rp235xa", "binary-info"] }
+embassy-time = { version = "0.3.2", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b", features = ["defmt", "defmt-timestamp-uptime"] }
+embassy-time-driver = { version = "0.1.0", git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b"}
+rp-pac = { version = "6.0.0", git="https://github.com/embassy-rs/rp-pac.git", rev="a7f42d25517f7124ad3b4ed492dec8b0f50a0e6c", default-features=false, features = ["rt","rp235x"] }
+
+defmt = { version = "0.3.8"}
+defmt-rtt = "0.4.1"
+cortex-m = { version = "0.7.7", features = ["inline-asm"] }
+cortex-m-rt = "0.7.0"
+critical-section = "1.1"
+panic-probe = { version = "0.3", features = ["print-defmt"] }
+embedded-hal = { version = "1.0.0" }
+embedded-alloc = { version = "0.6.0"}
+embedded-graphics = "0.8.1"
+ssd1306 = "0.8.1"
+u8g2-fonts = { version = "0.4.0", features = ["embedded_graphics_textstyle"] }
+embassy-dht = { version = "0.1.9", default-features = false, features = ["dht20","rp2350","embedded_alloc"] }
+# embassy-dht = { git="https://github.com/sndnvaps/embassy-dht", rev="a020823c82bf2f10c63c2bf933ae936a233a4b29", default-features=false, features = ["embedded_alloc","rp2350"] }
+cfg-if = "1.0"
+
+[profile.release]
+codegen-units = 1
+debug = false
+debug-assertions = false
+incremental = false
+lto = true
+opt-level = "z"
+overflow-checks = false
+strip = true
+
+[features]
+# if you want make dht11/dht22 as default feature, just change the comment line
+# default = ["dht11"]
+default = ["dht20"]
+dht11 = []
+dht22 = []
+dht20 = []
+
+[patch.crates-io]
+embassy-embedded-hal = {  git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b" }
+embassy-executor = {  git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b" }
+embassy-rp = {  git="https://github.com/embassy-rs/embassy", rev="ee669ee5c57851ade034beca7cfaf81825c4c21b" }
+embassy-time = { git="https://github.com/embassy-rs/embassy",  rev="ee669ee5c57851ade034beca7cfaf81825c4c21b" }
+embassy-time-driver = { git="https://github.com/embassy-rs/embassy",  rev="ee669ee5c57851ade034beca7cfaf81825c4c21b"}
+rp-pac = { git="https://github.com/embassy-rs/rp-pac.git", rev="a7f42d25517f7124ad3b4ed492dec8b0f50a0e6c" }
+embassy-dht = { git="https://github.com/sndnvaps/embassy-dht", rev="cf613fedc267ff45d8a580b512ff93af86a1bb10"}
